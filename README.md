@@ -28,6 +28,7 @@ end
 
 ##Usage
 The helper gives your model the following helpers
+
 ```ruby
 # Returns all objects within the specified radius ordered by nearest
 Class.near_lat_lng(lat, lng, radius) #radius defaults to 500metres
@@ -35,6 +36,10 @@ Class.near_lat_lng(lat, lng, radius) #radius defaults to 500metres
 ```ruby
 # Returns all objects within a rectangle 
 Class.within_bounding_box(min_lat, min_lng, max_lat, max_lng)
+```
+**Attribute setters**
+```ruby
+User.create(lat: -38, lng: 144)
 ```
 
 *More coming soon...*
