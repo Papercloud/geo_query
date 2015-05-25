@@ -28,7 +28,8 @@ module GeoQuery
       end
 
       ## Returns all objects within a bounding box
-      def self.within(min_lat, min_lng, max_lat, max_lng)
+      def self.within_bounding_box(min_lat, min_lng, max_lat, max_lng)
+        select("#{self.base_class.table_name}.*").
         where("#{self.base_class.point_column} && ST_MakeEnvelope(?, ?, ?, ?, 4326)",
           min_lng, min_lat, max_lng, max_lat)
       end

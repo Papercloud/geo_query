@@ -30,16 +30,16 @@ describe User do
     end
   end
 
-  describe "self.within" do
+  describe "self.within_bounding_box" do
 
     it "returns user within bounding box" do
       user = create(:user, lat: 37.8117802, lng: 144.9651743)
-      expect(User.within(37.8117802, 144.9651743, 37.8117802, 144.9651743)).to include user
+      expect(User.within_bounding_box(37.8117802, 144.9651743, 37.8117802, 144.9651743)).to include user
     end
 
     it "doesn't return user outside bounding box" do
       user = create(:user, lat: -37.8142383, lng: 144.9656678)
-      expect(User.within(37.8117802, 144.9651743, 37.8117802, 144.9651743)).to_not include user
+      expect(User.within_bounding_box(37.8117802, 144.9651743, 37.8117802, 144.9651743)).to_not include user
     end
   end
 

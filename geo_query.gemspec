@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["wp@papercloud.com.au"]
   s.homepage    = "http://papercloud.com.au"
   s.summary     = "Query PostGIS coordinate objects on any model"
-  s.description = ""
+  s.description = "Saves you the hassle of writing your own location queries and uses pre-built and reusable methods."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
