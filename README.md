@@ -2,6 +2,8 @@
 
 Saves you the hassle of writing your own location queries and uses pre-built and reusable methods. 
 
+The current version only supports Rails **4.2+**. Request other versions by opening an issue. 
+
 ##Install
 *These instructions already assume you have postgis enabled on your database, please follow the instructions here to enabled it https://github.com/rgeo/activerecord-postgis-adapter#install*
 
