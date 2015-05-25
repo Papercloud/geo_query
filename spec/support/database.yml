@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgis
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+
+development:
+  <<: *default
+  database: geo_query_development
+
+test:
+  <<: *default
+  database: geo_query_test
+
