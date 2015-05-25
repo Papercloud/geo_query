@@ -30,11 +30,11 @@ end
 The helper gives your model the following helpers
 ```ruby
 # Returns all objects within the specified radius ordered by nearest
-object.near_lat_lng(lat, lng, radius) #radius defaults to 500metres
+Class.near_lat_lng(lat, lng, radius) #radius defaults to 500metres
 ``` 
 ```
 # Returns all objects within a rectangle 
-object.within_bounding_box(min_lat, min_lng, max_lat, max_lng)
+Class.within_bounding_box(min_lat, min_lng, max_lat, max_lng)
 ```
 
 *More coming soon...*
