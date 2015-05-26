@@ -27,8 +27,14 @@ end
 ```
 
 ##Usage
-The helper gives your model the following helpers
+The helper gives your model the following methods
 
+**Instance Methods**
+```ruby
+# Returns nearest objects 
+object.near(radius)  
+```
+**Class Methods**
 ```ruby
 # Returns all objects within the specified radius ordered by nearest
 Class.near_lat_lng(lat, lng, radius) #radius defaults to 500metres
