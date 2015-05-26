@@ -1,7 +1,7 @@
 PATH
   remote: ../
   specs:
-    geo_query (0.0.1)
+    geo_query (0.0.2)
       activerecord-postgis-adapter (= 3.0.0.beta5)
       rails (~> 4.2)
 

@@ -1,6 +1,7 @@
 class AddCoordinatesTo<%= name.camelize %> < ActiveRecord::Migration
   def change
     add_column <%= ":#{name.underscore.pluralize.to_sym}" %>, :coordinates, :st_point, geographic: true
+    add_column <%= ":#{name.underscore.pluralize.to_sym}" %>, :location_updated_at, :datetime
     add_index <%= ":#{name.underscore.pluralize.to_sym}" %>, :coordinates, using: :gist
   end
 end

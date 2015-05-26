@@ -7,10 +7,22 @@ module GeoQuery
       mattr_accessor :point_column
       @@point_column = nil
 
+      # Accessors
       attr_accessor :lat, :lng
 
       # Validations
       validate :save_coordinates
+
+      # Callbacks
+      before_save :set_location_updated_at, if: :location_changed?
+
+      def location_changed?
+        send("#{self.point_column}_changed?")
+      end
+
+      def set_location_updated_at
+        self.location_updated_at = Time.now
+      end
 
       def save_coordinates
         if lat.present? && lng.present?
