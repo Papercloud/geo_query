@@ -5,19 +5,13 @@ module GeoQuery
     included do
       # Class vars
       mattr_accessor :point_column
-      @@point_column = nil
+      @@point_column = :coordinates
 
       # Accessors
       attr_accessor :lat, :lng
 
-      # Validations
-      validate :save_coordinates
-
-      # Callbacks
-      before_save :set_location_updated_at, if: :location_changed?
-
       def location_changed?
-        send("#{self.point_column}_changed?")
+        method("#{self.point_column}_changed?").call
       end
 
       def set_location_updated_at
@@ -68,6 +62,12 @@ module GeoQuery
       # Init method
       def geo_queryable(options = {})
         self.base_class.point_column = options[:coordinates] || :coordinates
+
+        # Validations
+        validate :save_coordinates
+
+        # Callbacks
+        before_save :set_location_updated_at, if: :location_changed?
       end
     end
   end
