@@ -1,4 +1,5 @@
 require 'activerecord-postgis-adapter'
+require 'rgeo-activerecord'
 
 module GeoQuery
   class Engine < ::Rails::Engine

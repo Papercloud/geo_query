@@ -12,11 +12,30 @@ describe User do
     expect(user).to be_valid
   end
 
+  ## Instance Methods
+  describe "near" do
+    before :each do
+      @user = create(:user, coordinates: nil)
+    end
+
+    it "returns users if point_column present" do
+      @user.update(lat: -37.809075, lng: 139.964770)
+      expect(@user.near.length).to eq 1
+    end
+
+    it "returns empty association if point_column empty" do
+      expect(@user.coordinates).to eq nil
+      expect(@user.near.length).to eq 0
+    end
+  end
+
+  ## Class Methods
+
   describe "self.near_lat_lng" do
     it "returns nearest user to a location" do
       user = create(:user, lat: -37.809075, lng: 139.964770)
       other_user = create(:user, lat: -37.809075, lng: 140)
-      expect(User.near_lat_lng(-37.809075, 139.96).first).to eq user
+      expect(User.near_lat_lng(-37.809075, 139.964770).first).to eq user
     end
 
     it "returns user within 50 meters from point" do

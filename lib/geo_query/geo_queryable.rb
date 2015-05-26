@@ -7,16 +7,32 @@ module GeoQuery
       mattr_accessor :point_column
       @@point_column = nil
 
-      # Validations
-      before_validation :save_coordinates
-
       attr_accessor :lat, :lng
 
-      # Instance Methods
+      # Validations
+      validate :save_coordinates
+
       def save_coordinates
         if lat.present? && lng.present?
           self.coordinates = "POINT(#{lng} #{lat})"
+        elsif (lat.present? && lng.blank?) || (lng.present? && lat.blank?)
+          errors.add(self.point_column, "requires both latitude and longitude")
         end
+      end
+
+      # Instance Methods
+      def rgeo_factory
+        RGeo::Geographic.spherical_factory(:srid => 4326)
+      end
+
+      def near(radius=500) #radius in metres
+        # x = longitude && y = latitude
+        return User.near_lat_lng(st_coordinates.y, st_coordinates.x, radius) if st_coordinates
+        self.class.none
+      end
+
+      def st_coordinates
+        send("#{self.point_column}")
       end
 
       # Class methods
