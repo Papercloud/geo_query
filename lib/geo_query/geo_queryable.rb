@@ -61,7 +61,7 @@ module GeoQuery
     module ClassMethods
       # Init method
       def geo_queryable(options = {})
-        self.base_class.point_column = options[:coordinates] || :coordinates
+        self.base_class.point_column = options[:column] || :coordinates
 
         # Validations
         validate :save_coordinates
