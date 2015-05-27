@@ -12,11 +12,20 @@ describe User do
     expect(user).to be_valid
   end
 
-  it "updates location_updated_at when coordinates change" do
-    user = create(:user)
-    expect{
-      user.update(lat: 2, lng: 5)
-    }.to change(user, :location_updated_at)
+  describe "track updates" do
+    before :each do
+      User.class_eval do
+        geo_queryable track_updates: true
+      end
+    end
+
+    it "updates location_updated_at when coordinates change" do
+      user = create(:user)
+      expect{
+        user.update(lat: 2, lng: 5)
+      }.to change(user, :location_updated_at)
+    end
+
   end
 
   ## Instance Methods
