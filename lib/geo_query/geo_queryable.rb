@@ -33,7 +33,7 @@ module GeoQuery
 
       def near(radius=500) #radius in metres
         # x = longitude && y = latitude
-        return User.near_lat_lng(st_coordinates.y, st_coordinates.x, radius) if st_coordinates
+        return self.class.near_lat_lng(st_coordinates.y, st_coordinates.x, radius) if st_coordinates
         self.class.none
       end
 
