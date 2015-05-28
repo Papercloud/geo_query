@@ -1,8 +1,8 @@
 # GeoQuery
 
-Saves you the hassle of writing your own location queries and uses pre-built and reusable methods. 
+Saves you the hassle of writing your own location queries and uses pre-built and reusable methods.
 
-The current version only supports Rails **4.2+**. Request other versions by opening an issue. 
+The current version only supports Rails **4.2+**. Request other versions by opening an issue.
 
 ##Install
 *These instructions already assume you have postgis enabled on your database, please follow the instructions here to enabled it https://github.com/rgeo/activerecord-postgis-adapter#install*
@@ -16,7 +16,7 @@ gem 'geo_query'
 *Will add a geography field to your model (Skip if already exists)*
 ```ruby
 # Where user is your model name
-rails g geo_query:resource User 
+rails g geo_query:resource User
 ```
 **Attach the helper to your model**
 ```ruby
@@ -31,21 +31,21 @@ The helper gives your model the following methods
 
 **Instance Methods**
 ```ruby
-# Returns nearest objects 
-object.near(radius)  
+# Returns nearest objects
+object.near(radius)
 ```
 **Class Methods**
 ```ruby
 # Returns all objects within the specified radius ordered by nearest
-Class.near_lat_lng(lat, lng, radius) #radius defaults to 500metres
-``` 
+Class.near_lat_lon(lat, lon, radius) #radius defaults to 500metres
+```
 ```ruby
-# Returns all objects within a rectangle 
-Class.within_bounding_box(min_lat, min_lng, max_lat, max_lng)
+# Returns all objects within a rectangle
+Class.within_bounding_box(min_lat, min_lon, max_lat, max_lon)
 ```
 **Attribute setters**
 ```ruby
-User.create(lat: -38, lng: 144)
+User.create(lat: -38, lon: 144)
 ```
 
 *More coming soon...*

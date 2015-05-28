@@ -11,7 +11,7 @@ module GeoQuery
       @@track_updates = false
 
       # Accessors
-      attr_accessor :lat, :lng
+      attr_accessor :lat, :lon
 
       def location_did_change?
         method("#{self.point_column}_changed?").call
@@ -22,9 +22,9 @@ module GeoQuery
       end
 
       def save_coordinates
-        if lat.present? && lng.present?
-          self.coordinates = "POINT(#{lng} #{lat})"
-        elsif (lat.present? && lng.blank?) || (lng.present? && lat.blank?)
+        if lat.present? && lon.present?
+          self.coordinates = "POINT(#{lon} #{lat})"
+        elsif (lat.present? && lon.blank?) || (lon.present? && lat.blank?)
           errors.add(self.point_column, "requires both latitude and longitude")
         end
       end
@@ -36,7 +36,7 @@ module GeoQuery
 
       def near(radius=500) #radius in metres
         # x = longitude && y = latitude
-        return self.class.near_lat_lng(st_coordinates.y, st_coordinates.x, radius) if st_coordinates
+        return self.class.near_lat_lon(st_coordinates.y, st_coordinates.x, radius) if st_coordinates
         self.class.none
       end
 
@@ -46,17 +46,17 @@ module GeoQuery
 
       # Class methods
       ## Returns other objects within the given radius of a point
-      def self.near_lat_lng(lat, lng, radius=500) #radius in metres
-        select("#{self.table_name}.*, ST_Distance(#{self.point_column}, ST_GeographyFromText('POINT(#{lng} #{lat})')) AS distance")
-        .where("ST_DWithin(#{self.point_column} , ST_GeographyFromText('POINT(#{lng} #{lat})'), #{radius})")
+      def self.near_lat_lon(lat, lon, radius=500) #radius in metres
+        select("#{self.table_name}.*, ST_Distance(#{self.point_column}, ST_GeographyFromText('POINT(#{lon} #{lat})')) AS distance")
+        .where("ST_DWithin(#{self.table_name}.#{self.point_column} , ST_GeographyFromText('POINT(#{lon} #{lat})'), #{radius})")
         .order("distance ASC")
       end
 
       ## Returns all objects within a bounding box
-      def self.within_bounding_box(min_lat, min_lng, max_lat, max_lng)
+      def self.within_bounding_box(min_lat, min_lon, max_lat, max_lon)
         select("#{self.table_name}.*").
-        where("#{self.point_column} && ST_MakeEnvelope(?, ?, ?, ?, 4326)",
-          min_lng, min_lat, max_lng, max_lat)
+        where("#{self.table_name}.#{self.point_column} && ST_MakeEnvelope(?, ?, ?, ?, 4326)",
+          min_lon, min_lat, max_lon, max_lat)
       end
 
     end
