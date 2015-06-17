@@ -41,7 +41,7 @@ Class.near_lat_lon(lat, lon, radius) #radius defaults to 500metres
 ```
 ```ruby
 # Returns all objects within a rectangle
-Class.within_bounding_box(min_lat, min_lon, max_lat, max_lon)
+Class.within_geo_query_bounding_box(min_lat, min_lon, max_lat, max_lon)
 ```
 **Attribute setters**
 ```ruby
