@@ -53,7 +53,7 @@ module GeoQuery
       end
 
       ## Returns all objects within a bounding box
-      def self.within_bounding_box(min_lat, min_lon, max_lat, max_lon)
+      def self.within_geo_query_bounding_box(min_lat, min_lon, max_lat, max_lon)
         select("#{self.table_name}.*").
         where("#{self.table_name}.#{self.point_column} && ST_MakeEnvelope(?, ?, ?, ?, 4326)",
           min_lon, min_lat, max_lon, max_lat)
